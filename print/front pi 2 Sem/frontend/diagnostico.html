@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico do Sistema - FilaFácil Saúde</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #00c4a7;
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .status-box {
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #ccc;
+        }
+        .status-ok {
+            border-left-color: #4caf50;
+        }
+        .status-warning {
+            border-left-color: #ff9800;
+        }
+        .status-error {
+            border-left-color: #f44336;
+        }
+        .status-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .status-indicator {
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .indicator-ok {
+            background-color: #4caf50;
+        }
+        .indicator-warning {
+            background-color: #ff9800;
+        }
+        .indicator-error {
+            background-color: #f44336;
+        }
+        .indicator-unknown {
+            background-color: #9e9e9e;
+        }
+        pre {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        button {
+            background-color: #00c4a7;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #00a08c;
+        }
+        .action-btns {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .log-container {
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .solution {
+            background-color: #e8f5e9;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Diagnóstico do Sistema - FilaFácil Saúde</h1>
+    
+    <div id="summary-status" class="status-box">
+        <div class="status-title">
+            <span class="status-indicator indicator-unknown" id="overall-indicator"></span>
+            Status Geral do Sistema
+        </div>
+        <div id="summary-content">Verificando o sistema...</div>
+    </div>
+    
+    <div class="status-box">
+        <div class="status-title">
+            <span class="status-indicator indicator-unknown" id="frontend-indicator"></span>
+            Frontend
+        </div>
+        <div id="frontend-content">Verificando...</div>
+    </div>
+    
+    <div class="status-box">
+        <div class="status-title">
+            <span class="status-indicator indicator-unknown" id="backend-indicator"></span>
+            Backend
+        </div>
+        <div id="backend-content">Verificando...</div>
+    </div>
+    
+    <div class="status-box">
+        <div class="status-title">
+            <span class="status-indicator indicator-unknown" id="database-indicator"></span>
+            Banco de Dados
+        </div>
+        <div id="database-content">Verificando...</div>
+    </div>
+    
+    <div class="status-box">
+        <div class="status-title">
+            <span class="status-indicator indicator-unknown" id="integration-indicator"></span>
+            Integração Frontend/Backend
+        </div>
+        <div id="integration-content">Verificando...</div>
+    </div>
+    
+    <div id="log-box" class="status-box" style="display: none;">
+        <div class="status-title">Log de Diagnóstico</div>
+        <div id="log-content" class="log-container"></div>
+    </div>
+    
+    <div class="action-btns">
+        <button id="refreshBtn">Atualizar Diagnóstico</button>
+        <button id="fixBtn">Reparar Problemas</button>
+        <button id="showLogBtn">Mostrar/Ocultar Log</button>
+        <button id="backBtn">Voltar para o Sistema</button>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000';
+        let diagnosticLog = [];
+        
+        // Função de log
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] [${type.toUpperCase()}] ${message}`;
+            diagnosticLog.push(logEntry);
+            
+            const logContent = document.getElementById('log-content');
+            if (logContent) {
+                logContent.innerHTML = diagnosticLog.join('<br>');
+                logContent.scrollTop = logContent.scrollHeight;
+            }
+            
+            console.log(logEntry);
+        }
+        
+        // Função para atualizar o status de um componente
+        function updateStatus(id, status, message, details = null) {
+            const indicator = document.getElementById(`${id}-indicator`);
+            const content = document.getElementById(`${id}-content`);
+            
+            // Atualizar o indicador
+            indicator.className = 'status-indicator';
+            switch (status) {
+                case 'ok':
+                    indicator.classList.add('indicator-ok');
+                    break;
+                case 'warning':
+                    indicator.classList.add('indicator-warning');
+                    break;
+                case 'error':
+                    indicator.classList.add('indicator-error');
+                    break;
+                default:
+                    indicator.classList.add('indicator-unknown');
+            }
+            
+            // Atualizar o conteúdo
+            content.innerHTML = message;
+            
+            // Se houver detalhes, adicionar ao conteúdo
+            if (details) {
+                const detailsHtml = typeof details === 'string' 
+                    ? details
+                    : `<pre>${JSON.stringify(details, null, 2)}</pre>`;
+                content.innerHTML += detailsHtml;
+            }
+            
+            // Log
+            log(`${id.charAt(0).toUpperCase() + id.slice(1)} status: ${status} - ${message}`, status);
+        }
+        
+        // Verificar o frontend
+        function checkFrontend() {
+            try {
+                const currentUrl = window.location.href;
+                const isFileProtocol = currentUrl.startsWith('file://');
+                
+                if (isFileProtocol) {
+                    updateStatus('frontend', 'warning', 
+                        'O frontend está sendo executado a partir do sistema de arquivos. Isso pode causar problemas de CORS.<br><br>' +
+                        '<div class="solution"><b>Solução:</b> Use um servidor web local como Live Server ou abra os arquivos com http://localhost.</div>'
+                    );
+                } else {
+                    updateStatus('frontend', 'ok', 'Frontend carregado corretamente via protocolo HTTP.');
+                }
+                
+                // Verificar se os arquivos JavaScript estão carregados
+                const scripts = Array.from(document.scripts)
+                    .map(script => script.src)
+                    .filter(src => src.includes('/css/'));
+                
+                return { status: isFileProtocol ? 'warning' : 'ok', protocols: { current: isFileProtocol ? 'file://' : 'http://' } };
+            } catch (error) {
+                updateStatus('frontend', 'error', 'Erro ao verificar o frontend', error.message);
+                return { status: 'error', error: error.message };
+            }
+        }
+        
+        // Verificar o backend
+        async function checkBackend() {
+            try {
+                const response = await fetch(`${API_URL}/status`, { 
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    updateStatus('backend', 'ok', 'Backend está respondendo corretamente', data);
+                    return { status: 'ok', data };
+                } else {
+                    updateStatus('backend', 'warning', 'Backend respondeu com erro', data);
+                    return { status: 'warning', data };
+                }
+            } catch (error) {
+                updateStatus('backend', 'error', 
+                    'Não foi possível conectar ao backend.<br><br>' +
+                    '<div class="solution"><b>Solução:</b> Verifique se o servidor está rodando. Execute o arquivo <code>iniciar_servidor.bat</code> na pasta backend.</div>'
+                );
+                return { status: 'error', error: error.message };
+            }
+        }
+        
+        // Verificar o banco de dados (via backend)
+        async function checkDatabase(backendStatus) {
+            try {
+                if (backendStatus.status === 'error') {
+                    updateStatus('database', 'unknown', 'Não foi possível verificar o banco de dados porque o backend não está respondendo');
+                    return { status: 'unknown' };
+                }
+                
+                if (backendStatus.data && backendStatus.data.db) {
+                    const dbStatus = backendStatus.data.db;
+                    
+                    if (dbStatus.status === 'conectado') {
+                        updateStatus('database', 'ok', 'Banco de dados conectado e funcionando', dbStatus);
+                        return { status: 'ok', data: dbStatus };
+                    } else {
+                        updateStatus('database', 'error', 
+                            'Banco de dados não está conectado.<br><br>' +
+                            '<div class="solution"><b>Solução:</b> Certifique-se de que o MySQL está rodando. ' +
+                            'Verifique as credenciais no arquivo <code>db.js</code>. ' +
+                            'Nome do banco: <code>filafacil_saude</code>, ' +
+                            'Usuário: <code>root</code>, ' +
+                            'Senha: <code>admin123</code></div>', 
+                            dbStatus
+                        );
+                        return { status: 'error', data: dbStatus };
+                    }
+                } else {
+                    updateStatus('database', 'warning', 'Não foi possível obter informações detalhadas do banco de dados');
+                    return { status: 'warning' };
+                }
+            } catch (error) {
+                updateStatus('database', 'error', 'Erro ao verificar o banco de dados', error.message);
+                return { status: 'error', error: error.message };
+            }
+        }
+        
+        // Testar a integração frontend/backend
+        async function checkIntegration() {
+            try {
+                // Tenta fazer um login de teste
+                const testData = { email: 'teste@teste.com', senha: 'senha_test' };
+                
+                const response = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testData)
+                });
+                
+                // Não importa se o login é bem-sucedido, apenas se a API responde
+                const data = await response.json();
+                
+                if (response.status === 401 || response.status === 200) {
+                    // 401 = credenciais inválidas, mas API funciona
+                    // 200 = credenciais válidas
+                    updateStatus('integration', 'ok', 'Integração frontend/backend está funcionando corretamente');
+                    return { status: 'ok' };
+                } else {
+                    updateStatus('integration', 'warning', 
+                        'A API está respondendo, mas com um código inesperado.<br><br>' +
+                        '<div class="solution"><b>Solução:</b> Verifique se as rotas da API estão configuradas corretamente.</div>', 
+                        { status: response.status, data }
+                    );
+                    return { status: 'warning', data };
+                }
+            } catch (error) {
+                updateStatus('integration', 'error', 
+                    'Erro na integração frontend/backend.<br><br>' +
+                    '<div class="solution"><b>Solução:</b> Verifique se o CORS está configurado corretamente no backend e se a URL da API está correta no frontend: <code>' + API_URL + '</code></div>', 
+                    error.message
+                );
+                return { status: 'error', error: error.message };
+            }
+        }
+        
+        // Atualizar o resumo geral
+        function updateOverallStatus(results) {
+            const statuses = Object.values(results).map(r => r.status);
+            
+            if (statuses.includes('error')) {
+                updateStatus('overall', 'error', 'Foram detectados problemas no sistema. Verifique os detalhes abaixo para soluções.');
+            } else if (statuses.includes('warning')) {
+                updateStatus('overall', 'warning', 'O sistema está funcionando, mas com alguns avisos.');
+            } else if (statuses.includes('unknown')) {
+                updateStatus('overall', 'warning', 'Alguns componentes do sistema não puderam ser verificados.');
+            } else {
+                updateStatus('overall', 'ok', 'Todos os componentes do sistema estão funcionando normalmente.');
+            }
+        }
+        
+        // Realizar diagnóstico completo
+        async function runDiagnostic() {
+            log('Iniciando diagnóstico...');
+            const results = {
+                frontend: checkFrontend()
+            };
+            
+            results.backend = await checkBackend();
+            results.database = await checkDatabase(results.backend);
+            results.integration = await checkIntegration();
+            
+            updateOverallStatus(results);
+            log('Diagnóstico concluído');
+            
+            return results;
+        }
+        
+        // Tentar resolver problemas comuns
+        async function attemptFixes() {
+            log('Tentando resolver problemas comuns...', 'warning');
+            
+            try {
+                // Verificar se o backend está rodando
+                try {
+                    await fetch(`${API_URL}/`);
+                    log('Backend está acessível, não é necessário iniciá-lo', 'info');
+                } catch (e) {
+                    log('Backend não está respondendo. Sugerindo iniciar o servidor...', 'warning');
+                    alert('O servidor back-end não está respondendo. Por favor, execute o arquivo iniciar_servidor.bat na pasta backend.');
+                }
+                
+                // Verificar o localStorage
+                log('Verificando dados armazenados localmente...', 'info');
+                const currentUser = localStorage.getItem('currentUser');
+                const currentQueue = localStorage.getItem('currentQueue');
+                
+                let resetStorage = false;
+                
+                if (currentUser && (currentUser === 'undefined' || currentUser === 'null')) {
+                    log('Dados de usuário corrompidos, limpar localStorage...', 'warning');
+                    resetStorage = true;
+                }
+                
+                if (currentQueue && (currentQueue === 'undefined' || currentQueue === 'null')) {
+                    log('Dados de fila corrompidos, limpar localStorage...', 'warning');
+                    resetStorage = true;
+                }
+                
+                if (resetStorage) {
+                    if (confirm('Foram encontrados dados corrompidos no armazenamento local. Deseja limpar esses dados para resolver o problema?')) {
+                        localStorage.removeItem('currentUser');
+                        localStorage.removeItem('currentQueue');
+                        log('Armazenamento local limpo com sucesso', 'info');
+                    }
+                }
+                
+                // Atualizar o diagnóstico
+                await runDiagnostic();
+                
+                log('Tentativas de correção concluídas', 'info');
+                
+            } catch (error) {
+                log(`Erro durante a tentativa de correção: ${error.message}`, 'error');
+            }
+        }
+
+        // Event listeners
+        document.getElementById('refreshBtn').addEventListener('click', runDiagnostic);
+        document.getElementById('fixBtn').addEventListener('click', attemptFixes);
+        document.getElementById('backBtn').addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+        document.getElementById('showLogBtn').addEventListener('click', () => {
+            const logBox = document.getElementById('log-box');
+            logBox.style.display = logBox.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Iniciar o diagnóstico quando a página carregar
+        document.addEventListener('DOMContentLoaded', runDiagnostic);
+    </script>
+</body>
+</html>

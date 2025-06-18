@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hospitais - FilaFácil Saúde</title>
+  <link rel="stylesheet" href="styles-hospitais.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-hospital"></i>
+      <span>FilaFácil Saúde</span>
+    </div>
+    <div class="search-container">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchHospitals" placeholder="Buscar hospitais..." />
+    </div>
+    <div class="user-menu">
+      <span id="userName">Visitante</span>
+      <div class="dropdown">
+        <button class="dropdown-button">
+          <i class="fas fa-user-circle"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="#"><i class="fas fa-user"></i> Perfil</a>
+          <a href="#"><i class="fas fa-history"></i> Histórico</a>
+          <a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="notification-bar">
+    <i class="fas fa-info-circle"></i>
+    <span>Bem-vindo ao FilaFácil Saúde! Escolha um hospital para entrar na fila de atendimento.</span>
+  </div>
+
+  <main>
+    <div class="hospital-card">
+      <div class="hospital-info">
+        <div class="hospital-header">
+          <h3>Hospital Santa Casa</h3>
+          <span class="badge high">Alta Frequência</span>
+        </div>
+        <p><i class="fas fa-map-marker-alt"></i> Localização: Franca, SP</p>
+        <p><i class="fas fa-phone"></i> Contato: (16) 3711-4000</p>
+        <div class="wait-info">
+          <div class="wait-metric">
+            <span>Tempo de espera</span>
+            <strong>~40 min</strong>
+          </div>
+          <div class="wait-metric">
+            <span>Na fila</span>
+            <strong>24</strong>
+          </div>
+        </div>
+        <button class="enter-queue-btn">Entrar na Fila</button>
+      </div>
+      <img src="../imagens/santa_casa 1.png" alt="Hospital Santa Casa" />
+    </div>
+
+    <div class="hospital-card">
+      <div class="hospital-info">
+        <div class="hospital-header">
+          <h3>Hospital Unimed</h3>
+          <span class="badge medium">Média Frequência</span>
+        </div>
+        <p><i class="fas fa-map-marker-alt"></i> R. Antônio Tôrres Penedo, 242 - São Joaquim, Franca - SP</p>
+        <p><i class="fas fa-phone"></i> (16) 3711-7794</p>
+        <div class="wait-info">
+          <div class="wait-metric">
+            <span>Tempo de espera</span>
+            <strong>~25 min</strong>
+          </div>
+          <div class="wait-metric">
+            <span>Na fila</span>
+            <strong>16</strong>
+          </div>
+        </div>
+        <button class="enter-queue-btn">Entrar na Fila</button>
+      </div>
+      <img src="../imagens/hospital_unimed 1.png" alt="Hospital Unimed" />
+    </div>
+
+    <div class="hospital-card">
+      <div class="hospital-info">
+        <div class="hospital-header">
+          <h3>São Joaquim Hospital e Maternidade</h3>
+          <span class="badge low">Baixa Frequência</span>
+        </div>
+        <p><i class="fas fa-map-marker-alt"></i> R. Abílio Coutinho, 331 - São Joaquim, Franca - SP</p>
+        <p><i class="fas fa-phone"></i> (16) 3711-7777</p>
+        <div class="wait-info">
+          <div class="wait-metric">
+            <span>Tempo de espera</span>
+            <strong>~15 min</strong>
+          </div>
+          <div class="wait-metric">
+            <span>Na fila</span>
+            <strong>7</strong>
+          </div>
+        </div>
+        <button class="enter-queue-btn">Entrar na Fila</button>
+      </div>
+      <img src="../imagens/hospital_saojoaquim 1.png" alt="São Joaquim Hospital e Maternidade" />
+    </div>
+
+    <div class="hospital-card">
+      <div class="hospital-info">
+        <div class="hospital-header">
+          <h3>Hospital do Câncer de Franca</h3>
+          <span class="badge medium">Média Frequência</span>
+        </div>
+        <p><i class="fas fa-map-marker-alt"></i> Av. Pres. Vargas, 2953 - Jd. Dr. Antonio Petraglia, Franca - SP</p>
+        <p><i class="fas fa-phone"></i> (16) 3712-3000</p>
+        <div class="wait-info">
+          <div class="wait-metric">
+            <span>Tempo de espera</span>
+            <strong>~30 min</strong>
+          </div>
+          <div class="wait-metric">
+            <span>Na fila</span>
+            <strong>18</strong>
+          </div>
+        </div>
+        <button class="enter-queue-btn">Entrar na Fila</button>
+      </div>
+      <img src="../imagens/hospital do cancer 1.png" alt="Hospital do Câncer de Franca" />
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 FilaFácil Saúde - Todos os direitos reservados</p>
+      <div class="footer-links">
+        <a href="#">Sobre</a>
+        <a href="#">Contato</a>
+        <a href="#">Termos de Uso</a>
+        <a href="#">Privacidade</a>
+      </div>
+    </div>
+  </footer>
+  <script src="diagnostico.js"></script>
+  <script src="hospitais.js"></script>
+</body>
+</html>

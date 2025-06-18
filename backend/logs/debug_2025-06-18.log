@@ -1,0 +1,8 @@
+[2025-06-18T02:17:49.985Z] REQUEST: {"method":"GET","url":"/","params":{},"query":{},"statusCode":200,"responseTime":2,"response":"não é um objeto JSON"}
+[2025-06-18T02:18:05.741Z] REQUEST: {"method":"GET","url":"/","params":{},"query":{},"statusCode":200,"responseTime":11,"response":"não é um objeto JSON"}
+[2025-06-18T02:18:24.879Z] REQUEST: {"method":"POST","url":"/usuarios","body":{"nome":"gabriel","email":"gabriel123@gmail.com","senha":"gabriel123","is_priority":false},"params":{},"query":{},"statusCode":201,"responseTime":149,"response":"não é um objeto JSON"}
+[2025-06-18T02:18:52.275Z] REQUEST: {"method":"POST","url":"/login","body":{"email":"gabriel123@gmail.com","senha":"hgabriel123"},"params":{},"query":{},"statusCode":401,"responseTime":92,"response":"não é um objeto JSON"}
+[2025-06-18T02:18:58.016Z] REQUEST: {"method":"POST","url":"/login","body":{"email":"gabriel123@gmail.com","senha":"gabriel123"},"params":{},"query":{},"statusCode":200,"responseTime":91,"response":"não é um objeto JSON"}
+[2025-06-18T02:18:58.142Z] REQUEST: {"method":"GET","url":"/","params":{},"query":{},"statusCode":200,"responseTime":2,"response":"não é um objeto JSON"}
+[2025-06-18T02:19:03.497Z] REQUEST: {"method":"POST","url":"/fila","body":{"email":"gabriel123@gmail.com","hospital_nome":"Hospital Santa Casa"},"params":{},"query":{},"statusCode":201,"responseTime":20,"response":"não é um objeto JSON"}
+[2025-06-18T02:19:03.573Z] REQUEST: {"method":"GET","url":"/","params":{},"query":{},"statusCode":200,"responseTime":1,"response":"não é um objeto JSON"}

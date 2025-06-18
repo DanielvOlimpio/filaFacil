@@ -1,0 +1,218 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../imagens/imagem_fund.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.form-container {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+/* Hide register form by default */
+#register-form {
+  display: none;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #00c4a7;
+  margin-bottom: 15px;
+}
+
+.logo i {
+  font-size: 28px;
+  margin-right: 10px;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-group i {
+  position: absolute;
+  left: 15px;
+  top: 12px;
+  color: #888;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+  width: 100%;
+  padding: 12px 15px 12px 45px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border 0.3s;
+}
+
+form input:focus {
+  border-color: #00c4a7;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 196, 167, 0.1);
+}
+
+small {
+  display: block;
+  text-align: left;
+  color: #666;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.priority-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.priority-option input {
+  margin-right: 10px;
+}
+
+.form-message {
+  color: #e53935;
+  font-size: 14px;
+  margin-bottom: 15px;
+  min-height: 20px;
+}
+
+form button {
+  background-color: #00c4a7;
+  color: white;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #009d85;
+}
+
+.toggle-form {
+  margin-top: 15px;
+  color: #666;
+  font-size: 14px;
+}
+
+.toggle-form a {
+  color: #00c4a7;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.toggle-form a:hover {
+  text-decoration: underline;
+}
+
+.social-login {
+  margin-top: 25px;
+  font-size: 14px;
+  color: #666;
+  position: relative;
+}
+
+.social-login span {
+  position: relative;
+  background: white;
+  padding: 0 10px;
+  z-index: 1;
+}
+
+.social-login:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+.social-icons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.social-icons button {
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.social-icons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.facebook { background-color: #3b5998; }
+.google { background-color: #db4437; }
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .form-container {
+    padding: 20px;
+  }
+  
+  .logo {
+    font-size: 20px;
+  }
+  
+  h2 {
+    font-size: 20px;
+  }
+}

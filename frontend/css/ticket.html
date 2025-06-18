@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FilaFácil Saúde - Sua Senha</title>
+  <link rel="stylesheet" href="styles-ticket.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-hospital"></i>
+      <span>FilaFácil Saúde</span>
+    </div>
+    <div class="user-menu">
+      <span id="userName">Visitante</span>
+      <div class="dropdown">
+        <button class="dropdown-button">
+          <i class="fas fa-user-circle"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="#"><i class="fas fa-user"></i> Perfil</a>
+          <a href="hospitais.html"><i class="fas fa-hospital"></i> Hospitais</a>
+          <a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
+        </div>
+      </div>
+    </div>
+  </header>
+ 
+  <main>
+    <div class="queue-section">
+      <!-- Informações do hospital -->
+      <div class="hospital-info-banner">
+        <img id="hospitalImage" src="../imagens/hospital_unimed 1.png" alt="Hospital" />
+        <div class="hospital-details">
+          <h2 id="hospitalName">Carregando...</h2>
+          <p id="hospitalAddress"><i class="fas fa-map-marker-alt"></i> Carregando...</p>
+        </div>
+      </div>
+      
+      <!-- Container da senha -->
+      <div class="ticket-container">
+        <div class="service-selector">
+          <label for="servico">Tipo de atendimento:</label>
+          <select id="servico">
+            <option value="consulta">Consulta Geral</option>
+            <option value="retorno">Retorno</option>
+            <option value="exame">Exame</option>
+            <option value="emergencia">Emergência</option>
+          </select>
+        </div>
+        
+        <!-- Senha atual sendo atendida -->
+        <div class="current-number">
+          <h3>Senha atual</h3>
+          <div class="number" id="currentNumber">P026</div>
+        </div>
+        
+        <!-- Sua senha -->
+        <div class="your-number">
+          <h3>Sua senha</h3>
+          <div class="number" id="yourNumber">P031</div>
+          <div class="priority-tag" id="priorityTag">Prioritário</div>
+        </div>
+        
+        <!-- Informações de espera -->
+        <div class="wait-details">
+          <div class="wait-card">
+            <i class="fas fa-users"></i>
+            <div class="wait-info">
+              <span>Sua posição</span>
+              <strong id="positionNumber">5</strong>
+            </div>
+          </div>
+          
+          <div class="wait-card">
+            <i class="fas fa-clock"></i>
+            <div class="wait-info">
+              <span>Tempo estimado</span>
+              <strong id="estimatedTime">25 min</strong>
+            </div>
+          </div>
+          
+          <div class="wait-card">
+            <i class="fas fa-bell"></i>
+            <div class="wait-info">
+              <span>Notificação</span>
+              <div class="toggle-switch">
+                <input type="checkbox" id="notification-toggle" checked>
+                <label for="notification-toggle"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Progresso na fila</span>
+            <span id="progressPercentage">75%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress" id="queueProgress"></div>
+          </div>
+        </div>
+        
+        <!-- Botões de ação -->
+        <div class="action-buttons">
+          <button class="btn-cancel"><i class="fas fa-times"></i> Cancelar senha</button>
+          <button class="btn-next" id="btnNextTicket"><i class="fas fa-forward"></i> Chamar próximo</button>
+        </div>
+      </div>
+      
+      <!-- Informações adicionais -->
+      <div class="info-container">
+        <div class="info-card">
+          <i class="fas fa-info-circle"></i>
+          <h4>Importante</h4>
+          <p>Fique atento à chamada da sua senha. Ao receber a notificação, dirija-se ao guichê indicado.</p>
+        </div>
+        
+        <div class="info-card">
+          <i class="fas fa-bell"></i>
+          <h4>Notificação</h4>
+          <p>Você será notificado quando estiver faltando 3 pessoas para sua vez.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modo atendente (Apenas para demonstração) -->
+    <div class="attendant-panel" id="attendantPanel">
+      <h3><i class="fas fa-user-md"></i> Painel do Atendente</h3>
+      <div class="ticket-controls">
+        <button id="callNextBtn" class="btn-primary"><i class="fas fa-bullhorn"></i> Chamar Próxima Senha</button>
+        <div class="flex-row">
+          <button class="btn-secondary"><i class="fas fa-undo"></i> Retornar</button>
+          <button class="btn-danger"><i class="fas fa-ban"></i> Ausente</button>
+        </div>
+      </div>
+      <div class="queue-summary">
+        <div class="queue-stat">
+          <span>Total na fila</span>
+          <strong>23</strong>
+        </div>
+        <div class="queue-stat">
+          <span>Prioritários</span>
+          <strong>7</strong>
+        </div>
+        <div class="queue-stat">
+          <span>Tempo médio</span>
+          <strong>4:32</strong>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <script src="diagnostico.js"></script>
+  <script src="ticket.js"></script>
+</body>
+</html>

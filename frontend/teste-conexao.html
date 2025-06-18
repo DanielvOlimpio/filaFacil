@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Conexão com o Backend</title>
+</head>
+<body>
+    <h1>Teste de Conexão com o Backend</h1>
+    <button id="testButton">Testar Conexão</button>
+    <div id="result" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc;"></div>
+
+    <script>
+        document.getElementById('testButton').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testando conexão...';
+            
+            try {
+                const response = await fetch('http://localhost:3000/', {
+                    method: 'GET'
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = `Conexão bem-sucedida!<br>Resposta: ${JSON.stringify(data)}`;
+                resultDiv.style.color = 'green';
+            } catch (error) {
+                resultDiv.innerHTML = `Erro de conexão: ${error.message}`;
+                resultDiv.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>

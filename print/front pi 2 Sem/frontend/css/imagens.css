@@ -1,0 +1,7 @@
+
+    body {
+      background-image: url("/imagens/imagem_fund.jpg");  /* Caminho da imagem */
+      background-size: cover;              /* Cobre toda a tela */
+      background-repeat: no-repeat;        /* Não repete a imagem */
+      background-position: center;         /* Centraliza a imagem */
+    }
