@@ -78,4 +78,6 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 Desenvolvedores:
 [DanielvOlimpio](https://github.com/DanielvOlimpio) 
 [GabrielCintra11](https://github.com/GabrielCintra11) 
+[JoaoGabriel103](https://github.com/JoaoGabriel103)
+[Weslei239](https://github.com/Weslei239)
 
