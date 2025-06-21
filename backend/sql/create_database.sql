@@ -1,4 +1,4 @@
--- Criação do banco de dados
+-- Criação do banco de dados por João Gabriel
 CREATE DATABASE IF NOT EXISTS filafacil_saude;
 USE filafacil_saude;
 
