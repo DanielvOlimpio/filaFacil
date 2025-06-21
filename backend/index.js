@@ -31,8 +31,8 @@ app.use(cors({
   methods: ['GET', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); // Permite envio de JSON
+app.use(bodyParser.urlencoded({ extended: true })); // Permite envio de formulários
 app.use(requestLogger); // Adiciona logger para todas as requisições
 
 // Rotas
